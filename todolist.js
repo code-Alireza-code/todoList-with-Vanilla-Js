@@ -6,16 +6,20 @@ const form = document.querySelector(".todo-form");
 const todoInput = document.querySelector(".todo-input");
 const todoList = document.querySelector(".todolist");
 const filterer = document.querySelector(".filter-todos");
+const modal = document.querySelector(".modal");
+const backdrop = document.querySelector(".backdrop");
+const closeModal = document.querySelector(".close-modal");
+const editInput = document.querySelector(".edit-input");
+const editForm = document.querySelector(".edit-form");
 
 //# Global Vars...
 let filterValue = "all";
+let selectedTodo = [];
 // let todos = getAllTodos();
 const dateOptions = {
-  weekday: "short",
   day: "2-digit",
   month: "short",
-  hour: "2-digit",
-  minute: "2-digit",
+  year: "2-digit",
 };
 
 //# Events...
@@ -35,6 +39,14 @@ filterer.addEventListener("change", (e) => {
   filterTodos();
 });
 
+closeModal.addEventListener("click", modalCloser);
+backdrop.addEventListener("click", modalCloser);
+
+editForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  submitEdit();
+  modalCloser();
+});
 //# functions...
 
 function addNewTodo() {
@@ -58,12 +70,14 @@ function renderTodos(todos) {
       item.title
     }</p>
     <span class="todo__createdAt">${new Date(item.createdAt).toLocaleDateString(
-      "fa-IR",
+      "en-US",
       dateOptions
     )}</span>
     <button class="todo__check" data-id=${
       item.id
     }><i class="far fa-check-square"></i></button>
+    <button class="todo__edit" data-id=${item.id}>
+    <i class="fa-regular fa-pen-to-square"></i></button>
     <button class="todo__remove" data-id=${
       item.id
     }><i class=" far fa-trash-alt"></i></button>
@@ -76,10 +90,22 @@ function renderTodos(todos) {
   deleteBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => deleteTodo(e));
   });
+
   //? check btns
   const checkBtns = document.querySelectorAll(".todo__check");
   checkBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => checkTodos(e));
+  });
+
+  //? edit btns
+  const editBtns = document.querySelectorAll(".todo__edit");
+  editBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      backdrop.style.display = "block";
+      modal.style.display = "flex";
+      editInput.focus();
+      editTodo(e);
+    });
   });
 }
 function filterTodos() {
@@ -117,6 +143,22 @@ function checkTodos(e) {
   selectedTodo.isCompleted = !selectedTodo.isCompleted;
   saveAllTodos(todos);
   filterTodos(todos);
+}
+function editTodo(e) {
+  selectedTodo = getAllTodos().find((todo) => todo.id == e.target.dataset.id);
+  editInput.value = selectedTodo.title;
+}
+function submitEdit() {
+  let allTodos = getAllTodos().map((todo) =>
+    todo.id != selectedTodo.id ? todo : { ...todo, title: editInput.value }
+  );
+
+  saveAllTodos(allTodos);
+  filterTodos();
+}
+function modalCloser() {
+  backdrop.style.display = "none";
+  modal.style.display = "none";
 }
 
 // save and read Data from localStorage

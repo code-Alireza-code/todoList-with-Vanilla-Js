@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +13,7 @@
   --mainWhite: #fff;
   --mainBlack: #222;
   --mainGrey: #7c7c7c;
-  --secondayGrey:#ccc;
+  --secondayGrey: #ccc;
   --mainSpacing: 0.1rem;
   --mainTransition: all 0.3s linear;
   --mainRed: #db2777;
@@ -56,7 +55,7 @@ form {
   border-radius: 0.5rem;
   display: flex;
   justify-content: space-between;
-  border:2px solid var(--secondayGrey);
+  border: 2px solid var(--secondayGrey);
   overflow: hidden;
 }
 form input {
@@ -101,9 +100,11 @@ form button:hover {
 .todo button {
   display: block;
   font-size: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   background-color: transparent;
+  width: 40px;
+  height: 40px;
 }
 
 .fa-trash-alt {
@@ -111,6 +112,9 @@ form button:hover {
 }
 .fa-check-square {
   color: var(--primaryColor);
+}
+.fa-pen-to-square {
+  color: #e85d04;
 }
 .completed {
   text-decoration: line-through;
@@ -147,12 +151,54 @@ select {
   pointer-events: none;
 }
 
-
-button{
+button {
   border: none;
   outline: 0;
-
 }
 button > i {
   pointer-events: none;
-} 
+}
+
+/* edit feature ! */
+
+.backdrop {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #8f8f8f;
+  filter: blur(px);
+  opacity: 0.5;
+  z-index: 10;
+  display: none;
+}
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  z-index: 11;
+  width: 600px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 7px;
+  display: none;
+}
+.edit-title {
+  font-size: 2rem;
+  margin: 2rem 0;
+}
+.close-modal {
+  background: transparent;
+  padding: 0.5rem;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  overflow: hidden;
+  cursor: pointer;
+}

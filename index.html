@@ -8,16 +8,18 @@
     <link rel="stylesheet" href="./style.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
   </head>
   <body>
+    <!-- app header -->
     <header>
       <h1>todo list</h1>
     </header>
+    <!-- app header -->
     <section class="container">
       <div class="form-container">
         <form class="todo-form">
@@ -45,6 +47,17 @@
         </ul>
       </div>
     </section>
-    <script src="./todolist.js"></script>
+    <!-- modal -->
+    <div class="backdrop"></div>
+    <div class="modal">
+      <button class="close-modal">&#10005;</button>
+      <h3 class="edit-title">edit Todo</h3>
+      <form class="edit-form">
+        <input class="edit-input" type="text" />
+        <button class="edit-save">save Changes</button>
+      </form>
+    </div>
+    <!-- modal -->
   </body>
+  <script src="./todolist.js"></script>
 </html>
